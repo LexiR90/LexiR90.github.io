@@ -1,0 +1,156 @@
+﻿\documentclass[12pt]{article} % Defines the document type and base font size
+
+
+% --- PACKAGES ---
+% These packages extend LaTeX's functionality.
+\usepackage[utf8]{inputenc} % For direct input of UTF-8 characters (e.g., degree symbol, etc.)
+\usepackage[T1]{fontenc}    % For proper font encoding
+\usepackage{amsmath}        % Provides environments for multi-line equations, matrices, etc.
+\usepackage{amssymb}        % Provides mathematical symbols (e.g., real numbers, complex numbers)
+\usepackage{graphicx}       % For including images (e.g., the schematic diagram)
+\usepackage{siunitx}        % For consistent and correct typesetting of units (e.g., N-m/rad)
+\usepackage{geometry}       % For setting page margins
+\geometry{a4paper, margin=1in} % Sets standard A4 paper with 1-inch margins
+\usepackage{enumitem}       % For more control over lists (e.g., customizing item labels)
+\usepackage{hyperref}       % For clickable links in the PDF (e.g., to figures, equations)
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+\usepackage{float}          % For better control over figure/table placement
+\usepackage{caption}        % For customizing figure/table captions
+
+
+% --- CUSTOM COMMANDS (Optional, but can save typing) ---
+% Define any frequently used commands here.
+\newcommand{\torque}{\tau}
+\newcommand{\inertia}{J}
+\newcommand{\damping}{B}
+\newcommand{\stiffness}{K}
+\newcommand{\angulardisp}{\theta}
+\newcommand{\angularvel}{\dot{\theta}} % Dot for time derivative (velocity)
+\newcommand{\unitstep}{U(t)}
+\newcommand{\unitimpulse}{\delta(t)}
+
+
+% --- DOCUMENT START ---
+\begin{document}
+
+
+% --- TITLE PAGE (Basic) ---
+\title{ME-340 Project: Turbine-Generator System Analysis}
+\author{Your Name(s) / Collaborator's Name \\ \small Your University / Course}
+\date{Spring 2025} % Based on the PDF
+\maketitle
+
+
+% --- TABLE OF CONTENTS ---
+% Generates a table of contents automatically.
+\clearpage % Start table of contents on a new page
+\tableofcontents
+\clearpage % Start content on a new page
+
+
+% --- INTRODUCTION ---
+\section{Introduction}
+This document presents the analysis of a turbine-generator system connected via a gear pair, as detailed in the ME-340 Project for Spring 2025. The system schematic is provided in Figure \ref{fig:schematic}.
+
+
+% --- SYSTEM PARAMETERS ---
+\section{System Parameters}
+The following parameters are provided for the system:
+\begin{itemize}
+    \item Radius ratio of the gears: $\frac{R_4}{R_3} = 1.5$.
+    \item Mass moment of inertia of Gear 3: $\inertia_3 = \SI{100}{kg\cdot m^2}$.
+    \item Mass moment of inertia of Gear 4: $\inertia_4 = \SI{200}{kg\cdot m^2}$.
+    \item Mass moment of inertia of the Turbine: $\inertia_1 = \SI{2000}{kg\cdot m^2}$.
+    \item Mass moment of inertia of the Generator: $\inertia_2 = \SI{1000}{kg\cdot m^2}$.
+    \item Torsional stiffness of Shaft 1: $\stiffness_1 = \SI{3e5}{N\cdot m/rad}$.
+    \item Torsional stiffness of Shaft 2: $\stiffness_2 = \SI{8e4}{N\cdot m/rad}$.
+    \item Damping constant for the Turbine: $\damping_1 = \SI{300}{N\cdot m/(rad/s)}$.
+    \item Damping constant for the Generator: $\damping_2 = \SI{8e2}{N\cdot m/(rad/s)}$.
+    \item Damping constant for Gear 3: $\damping_3 = \SI{100}{N\cdot m/(rad/s)}$.
+\end{itemize}
+
+
+% Include the schematic diagram
+\begin{figure}[H] % [H] attempts to place it "here" exactly
+    \centering
+    \includegraphics[width=0.8\textwidth]{schematic.png} % Replace 'schematic.png' with the actual image file of the diagram
+    \caption{Turbine-Generator System Schematic}
+    \label{fig:schematic}
+\end{figure}
+
+
+% --- ASSIGNMENT SECTIONS ---
+
+
+\section{Equations of Motion}
+This section presents the derivation of the equations of motion for the system, expressed in terms of angular displacements $\theta_1$, $\theta_2$, and $\theta_3$.
+% Your derivations and equations go here.
+% Example equation:
+% \begin{equation}
+%     \inertia_1 \ddot{\theta}_1 + \damping_1 \dot{\theta}_1 + \stiffness_1 (\theta_1 - \theta_3) = \torque_1(t)
+% \end{equation}
+
+
+\section{State-Space Model}
+Here, the state-space model for the system is developed. The outputs are assumed to be the angular velocities of the turbine, generator, and Gear 3.
+% Your state-space matrices (A, B, C, D) and explanations go here.
+
+
+\section{Simulink Model}
+This section details the development of the Simulink model for the system.
+% Describe your Simulink model structure, key blocks, and how it represents the system.
+% You might refer to screenshots of your Simulink model if you include them as images.
+
+
+\section{Angular Velocity Response to Turbine Unit Step Input}
+The angular velocities of the turbine and generator in response to a unit step input applied to the turbine ($\tau_1(t) = U(t)$) are determined using both the state-space and Simulink models.
+% Present your results (plots, analysis) here.
+
+
+\section{Angular Velocity Response to Generator Unit Step Input}
+The angular velocities of the turbine and generator in response to a unit step input applied to the generator ($\tau_2(t) = U(t)$) are determined using both the state-space and Simulink models.
+% Present your results (plots, analysis) here.
+
+
+\section{Angular Velocity Response to Gear Impulse Input}
+The angular velocity response of the generator to a unit impulse applied to Gear 3 ($\tau_3(t) = \delta(t)$) is determined using the state-space model.
+% Present your results (plots, analysis) here.
+
+
+\section{Frequency Response (Bode Plots) for Original Damping}
+This section presents the frequency response (Bode plots) between the angular velocity of the generator and a sinusoidal input at Gear 3, using the state-space model. The steady-state response for a sinusoidal input at the first mode is checked using Simulink.
+% Present your Bode plots and steady-state verification.
+
+
+\section{Frequency Response with Reduced Damping}
+The damping constants are reduced by a factor of 10. The frequency response (Bode plots) between the angular velocity of the generator and an input at Gear 3 is determined using the state-space model. The steady-state response for an input of $\tau_3(t)=\sin(30t)$ is also determined.
+% Present your Bode plots and steady-state response.
+
+
+\section{Frequency Response with Increased Damping}
+The damping constants are increased by a factor of 10. The frequency response (Bode plots) between the angular velocity of the generator and an input at Gear 3 is determined using the state-space model. The steady-state response for an input of $\tau_3(t)=\sin(30t)$ is also determined.
+% Present your Bode plots and steady-state response.
+
+
+\section{Vibratory Modes}
+A sketch of the first two vibratory modes of the system is provided.
+% Include your hand-drawn sketches (e.g., as images) and explanations.
+
+
+\section{System Redesign}
+This section describes the redesign of the system to increase both the first and second resonant frequencies by over 20\%.
+% Detail your redesign approach, calculations, and new parameters.
+
+
+% --- BIBLIOGRAPHY (if you use external sources beyond the problem statement) ---
+% \bibliographystyle{plain} % Or another style like 'IEEEtran' for engineering
+% \bibliography{your_references} % If you use a .bib file
+
+
+% --- DOCUMENT END ---
+\end{document}
